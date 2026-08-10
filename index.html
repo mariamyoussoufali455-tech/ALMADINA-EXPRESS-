@@ -59,7 +59,6 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 </section>
 
 <main id="menu">
-
 <h2>🍴 قائمة الطعام</h2>
 
 <div class="categories">
@@ -73,7 +72,6 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 </div>
 
 <div class="products" id="products"></div>
-
 </main>
 
 <footer>
@@ -82,7 +80,9 @@ AL MADINA EXPRESS<br>
 أنجمينا • تشاد 🇹🇩
 </footer>
 
-<button class="cart" onclick="openCart()">🛒<span class="count" id="count">0</span></button>
+<button class="cart" onclick="openCart()">
+🛒<span class="count" id="count">0</span>
+</button>
 
 <div class="panel" id="panel">
 <button class="close" onclick="closeCart()">×</button>
@@ -184,11 +184,9 @@ document.getElementById("products").innerHTML=
 list.map(x=>`
 
 <div class="card">
-
 <img src="${x[4]}" alt="${x[0]}">
 
 <div>
-
 <h3>${fr?x[1]:x[0]}</h3>
 
 <p class="desc">
@@ -260,25 +258,17 @@ box.innerHTML=cart.map(x=>`
 <div class="item">
 
 <div>
-
 <strong>
 ${fr?foods[x.id][1]:foods[x.id][0]}
 </strong>
-
 <br>
-
 ${money(foods[x.id][3])}
-
 </div>
 
 <div class="qty">
-
 <button onclick="change(${x.id},-1)">−</button>
-
 ${x.q}
-
 <button onclick="change(${x.id},1)">+</button>
-
 </div>
 
 </div>
@@ -289,11 +279,8 @@ ${x.q}
 box.innerHTML+=`
 
 <div class="total">
-
 <span>المجموع</span>
-
 <strong>${money(total())}</strong>
-
 </div>
 
 <button class="primary"
@@ -355,11 +342,9 @@ document.getElementById("cart").innerHTML=`
 <h3>بيانات الطلب</h3>
 
 <label>الاسم</label>
-
 <input id="name" placeholder="اكتب اسمك">
 
 <label>رقم الهاتف</label>
-
 <input id="phone" placeholder="+235">
 
 <label>طريقة الطلب</label>
@@ -384,12 +369,10 @@ placeholder="العنوان بالتفصيل"></textarea>
 <label>وقت الاستلام</label>
 
 <select id="time">
-
 <option>في أسرع وقت</option>
 <option>بعد 15 دقيقة</option>
 <option>بعد 30 دقيقة</option>
 <option>بعد ساعة</option>
-
 </select>
 
 <div class="cash">
@@ -457,13 +440,11 @@ let orderItems=cart.map(x=>{
 let food=foods[x.id];
 
 return {
-
 name:food[0],
 nameFr:food[1],
 quantity:x.q,
 price:food[3],
 subtotal:food[3]*x.q
-
 };
 
 });
@@ -494,7 +475,6 @@ try{
 await addDoc(
 collection(db,"orders"),
 {
-
 orderNumber:number,
 customerName:name,
 phone:phone,
@@ -506,33 +486,23 @@ items:orderItems,
 total:total(),
 status:"new",
 createdAt:serverTimestamp()
-
 });
 
 }catch(error){
 
-console.error(
-"Firebase error:",
-error
-);
-
-/*
-لا نوقف الطلب إذا حدث خطأ في Firebase.
-*/
+console.error("Firebase error:",error);
 
 }
 
 
-/* إنشاء رسالة واتساب */
+/* رسالة واتساب */
 
 let message=
 
 "🔔 *طلب جديد - المدينة إكسبرس*\n\n"+
 
 "🔢 رقم الطلب: "+number+"\n"+
-
 "👤 الاسم: "+name+"\n"+
-
 "📞 هاتف العميل: "+phone+"\n\n"+
 
 "🍽️ *الطلب:*\n"+
@@ -543,9 +513,7 @@ money(total())+
 "*\n"+
 
 "💵 الدفع: كاش عند الاستلام\n"+
-
 "📦 الطريقة: "+method+"\n"+
-
 "⏰ الوقت: "+time+"\n"+
 
 (type==="delivery"?
@@ -554,14 +522,22 @@ money(total())+
 "\nشكراً لاختيار المدينة إكسبرس ❤️";
 
 
-let whatsappURL=
+/* رابط التطبيق ورابط المتصفح */
+
+let whatsappApp=
+"whatsapp://send?phone="+
+WHATSAPP_NUMBER+
+"&text="+
+encodeURIComponent(message);
+
+let whatsappWeb=
 "https://wa.me/"+
 WHATSAPP_NUMBER+
 "?text="+
 encodeURIComponent(message);
 
 
-/* إظهار زر واتساب */
+/* صفحة التأكيد */
 
 document.getElementById("cart").innerHTML=`
 
@@ -571,50 +547,87 @@ document.getElementById("cart").innerHTML=`
 ✅
 </div>
 
-<h2>
-تم تسجيل طلبك
-</h2>
+<h2>تم تسجيل طلبك</h2>
 
-<p>
-رقم الطلب
-</p>
+<p>رقم الطلب</p>
 
 <h1 style="color:#8b1e2d">
 ${number}
 </h1>
 
 <p>
-تم تجهيز الطلب.
-اضغطي الزر لإرساله إلى واتساب المطعم.
+اختاري طريقة إرسال الطلب:
 </p>
 
-<a href="${whatsappURL}"
-target="_blank"
+
+<button
+onclick="openWhatsApp('${whatsappApp}','${whatsappWeb}')"
 style="
-display:block;
+width:100%;
 background:#25D366;
 color:white;
-text-decoration:none;
+border:0;
 padding:15px;
 border-radius:25px;
 font-weight:bold;
-margin-top:20px;
+font-size:16px;
 ">
 
-📲 إرسال الطلب إلى واتساب
+📲 إرسال عبر واتساب
 
-</a>
+</button>
+
+
+<br><br>
+
+
+<button
+onclick="window.open('${whatsappWeb}','_blank')"
+style="
+width:100%;
+background:#128C7E;
+color:white;
+border:0;
+padding:12px;
+border-radius:25px;
+font-weight:bold;
+">
+
+🌐 فتح واتساب عبر المتصفح
+
+</button>
 
 </div>
 
 `;
 
 
-/* تفريغ السلة */
-
 cart=[];
-
 document.getElementById("count").innerText="0";
+
+};
+
+
+/* فتح واتساب */
+
+window.openWhatsApp=function(appUrl,webUrl){
+
+/* محاولة فتح تطبيق واتساب */
+
+window.location.href=appUrl;
+
+
+/* إذا لم يفتح التطبيق ننتقل للمتصفح */
+
+setTimeout(function(){
+
+if(!document.hidden){
+
+window.location.href=webUrl;
+
+}
+
+},1800);
 
 };
 

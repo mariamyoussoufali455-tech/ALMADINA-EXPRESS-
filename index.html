@@ -36,6 +36,7 @@ main{max-width:1100px;margin:auto;padding:25px 15px}
 .qty button{border:0;border-radius:50%;width:28px;height:28px}
 .total{display:flex;justify-content:space-between;font-size:20px;font-weight:bold;padding:20px 0}
 input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:6px 0 12px}
+.cash{background:#f8f0d7;border-radius:10px;padding:12px;margin:10px 0;color:#6b5310}
 footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30px}
 @media(min-width:700px){.products{grid-template-columns:repeat(4,1fr)}}
 </style>
@@ -90,6 +91,9 @@ AL MADINA EXPRESS<br>
 </div>
 
 <script>
+
+/* رقم واتساب استقبال الطلبات */
+const WHATSAPP_NUMBER = "23591161659";
 
 const foods=[
 
@@ -152,11 +156,9 @@ function show(list=foods){
 document.getElementById("products").innerHTML=list.map((x,i)=>`
 
 <div class="card">
-
 <img src="${x[4]}" alt="${x[0]}">
 
 <div>
-
 <h3>${fr?x[1]:x[0]}</h3>
 
 <p class="desc">
@@ -165,12 +167,11 @@ ${fr?"Délicieux repas préparé à la manière Al Madina":"وجبة شهية م
 
 <div class="price">${money(x[3])}</div>
 
-<button class="add" onclick="add(${i})">
+<button class="add" onclick="add(${foods.indexOf(x)})">
 ${fr?"Ajouter au panier":"أضف إلى السلة"}
 </button>
 
 </div>
-
 </div>
 
 `).join("");
@@ -209,7 +210,6 @@ let box=document.getElementById("cart");
 if(!cart.length){
 
 box.innerHTML="<p>السلة فارغة 🛒</p>";
-
 return;
 
 }
@@ -227,9 +227,7 @@ ${money(foods[x.id][3])}
 <div class="qty">
 
 <button onclick="change(${x.id},-1)">−</button>
-
 ${x.q}
-
 <button onclick="change(${x.id},1)">+</button>
 
 </div>
@@ -271,8 +269,7 @@ update();
 function total(){
 
 return cart.reduce(
-(a,b)=>a+foods[b.id][3]*b.q,0
-);
+(a,b)=>a+foods[b.id][3]*b.q,0);
 
 }
 
@@ -304,15 +301,8 @@ document.getElementById("cart").innerHTML=`
 <label>طريقة الطلب</label>
 
 <select id="type">
-
-<option value="delivery">
-🚗 توصيل إلى المنزل
-</option>
-
-<option value="pickup">
-🏪 استلام من المطعم
-</option>
-
+<option value="delivery">🚗 توصيل إلى المنزل</option>
+<option value="pickup">🏪 استلام من المطعم</option>
 </select>
 
 <label>العنوان</label>
@@ -321,18 +311,21 @@ document.getElementById("cart").innerHTML=`
 <label>وقت الاستلام</label>
 
 <select id="time">
-
 <option>في أسرع وقت</option>
 <option>بعد 15 دقيقة</option>
 <option>بعد 30 دقيقة</option>
 <option>بعد ساعة</option>
-
 </select>
+
+<div class="cash">
+💵 <strong>طريقة الدفع: كاش فقط</strong><br>
+الدفع عند استلام الطلب.
+</div>
 
 <br>
 
 <button class="primary" style="width:100%" onclick="confirmOrder()">
-تأكيد الطلب
+تأكيد الطلب وإرسال الطلب إلى واتساب
 </button>
 
 `;
@@ -341,18 +334,58 @@ document.getElementById("cart").innerHTML=`
 
 function confirmOrder(){
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
+let name=document.getElementById("name").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let type=document.getElementById("type").value;
+let address=document.getElementById("address").value.trim();
+let time=document.getElementById("time").value;
 
 if(!name||!phone){
 
 alert("يرجى كتابة الاسم ورقم الهاتف");
+return;
 
+}
+
+if(type==="delivery"&&!address){
+
+alert("يرجى كتابة عنوان التوصيل");
 return;
 
 }
 
 let number="MX-"+Math.floor(100000+Math.random()*900000);
+
+let items=cart.map(x=>{
+
+let food=foods[x.id];
+
+return "• "+food[0]+" × "+x.q+" = "+money(food[3]*x.q);
+
+}).join("\n");
+
+let method=
+type==="delivery"
+?"🚗 توصيل إلى المنزل"
+:"🏪 استلام من المطعم";
+
+let message=
+"🔔 *طلب جديد - المدينة إكسبرس*\n\n"+
+"🔢 رقم الطلب: "+number+"\n"+
+"👤 الاسم: "+name+"\n"+
+"📞 هاتف العميل: "+phone+"\n\n"+
+"🍽️ *الطلب:*\n"+
+items+"\n\n"+
+"💰 *المجموع: "+money(total())+"*\n"+
+"💵 الدفع: كاش عند الاستلام\n"+
+"📦 الطريقة: "+method+"\n"+
+"⏰ الوقت: "+time+"\n"+
+(type==="delivery"?"📍 العنوان: "+address+"\n":"")+
+"\nشكراً لاختيار المدينة إكسبرس ❤️";
+
+let whatsappURL=
+"https://wa.me/"+WHATSAPP_NUMBER+
+"?text="+encodeURIComponent(message);
 
 document.getElementById("cart").innerHTML=`
 
@@ -360,24 +393,34 @@ document.getElementById("cart").innerHTML=`
 
 <div style="font-size:60px">✅</div>
 
-<h2>تم استلام طلبك</h2>
+<h2>تم تجهيز طلبك</h2>
 
 <p>رقم الطلب</p>
 
-<h1 style="color:#8b1e2d">
-${number}
-</h1>
+<h1 style="color:#8b1e2d">${number}</h1>
 
 <p>
-سيتم تجهيز طلبك، ويمكنك الحضور في الوقت المحدد أو انتظار التوصيل.
+اضغط الزر لإرسال تفاصيل الطلب إلى واتساب المدينة إكسبرس.
 </p>
+
+<a href="${whatsappURL}"
+target="_blank"
+style="
+display:block;
+background:#25D366;
+color:white;
+text-decoration:none;
+padding:15px;
+border-radius:25px;
+font-weight:bold;
+margin-top:20px;
+">
+📲 إرسال الطلب إلى واتساب
+</a>
 
 </div>
 
 `;
-
-cart=[];
-document.getElementById("count").innerText=0;
 
 }
 

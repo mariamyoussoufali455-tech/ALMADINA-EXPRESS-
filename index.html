@@ -1,1 +1,367 @@
+    index.html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المدينة إكسبرس | AL MADINA EXPRESS</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f8f5f0;
+      color: #222;
+    }
+
+    header {
+      background: #8b1e2d;
+      color: white;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo small {
+      display: block;
+      font-size: 11px;
+      opacity: .85;
+      margin-top: 4px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .language {
+      background: white;
+      color: #8b1e2d;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #8b1e2d, #b63a4b);
+      color: white;
+      padding: 45px 22px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      margin-bottom: 22px;
+    }
+
+    .hero button {
+      background: #f5c542;
+      color: #222;
+      padding: 13px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 25px 18px;
+    }
+
+    .section h2 {
+      margin-bottom: 18px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 10px 18px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .category.active {
+      background: #8b1e2d;
+      color: white;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .food-image {
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 55px;
+      background: #f3eee8;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+
+    .product h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .price {
+      color: #8b1e2d;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .add {
+      width: 100%;
+      background: #8b1e2d;
+      color: white;
+      padding: 9px;
+      border-radius: 9px;
+    }
+
+    .cart {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #8b1e2d;
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      font-size: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #f5c542;
+      color: #222;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 700px) {
+      .products {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .hero {
+        padding: 70px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    🍽️ المدينة إكسبرس
+    <small>AL MADINA EXPRESS • N'DJAMENA</small>
+  </div>
+
+  <button class="language" onclick="changeLanguage()">
+    Français
+  </button>
+</header>
+
+<section class="hero">
+  <h1 id="title">طعامك المفضل أينما كنت</h1>
+  <p id="description">
+    اطلب وجبتك بسهولة واستمتع بطعم المدينة إكسبرس.
+  </p>
+  <button onclick="scrollToMenu()" id="menuButton">
+    تصفح القائمة
+  </button>
+</section>
+
+<section class="section" id="menu">
+
+  <h2 id="menuTitle">🍴 قائمة الطعام</h2>
+
+  <div class="categories">
+    <button class="category active">الكل</button>
+    <button class="category">🍔 الوجبات</button>
+    <button class="category">🍗 الدجاج</button>
+    <button class="category">🍕 البيتزا</button>
+    <button class="category">🥤 المشروبات</button>
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="food-image">🍔</div>
+      <div class="product-info">
+        <h3>برغر المدينة</h3>
+        <div class="price">3,500 FCFA</div>
+        <button class="add" onclick="addToCart()">أضف للسلة</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="food-image">🍗</div>
+      <div class="product-info">
+        <h3>دجاج مشوي</h3>
+        <div class="price">4,500 FCFA</div>
+        <button class="add" onclick="addToCart()">أضف للسلة</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="food-image">🍕</div>
+      <div class="product-info">
+        <h3>بيتزا المدينة</h3>
+        <div class="price">5,000 FCFA</div>
+        <button class="add" onclick="addToCart()">أضف للسلة</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="food-image">🥤</div>
+      <div class="product-info">
+        <h3>مشروب غازي</h3>
+        <div class="price">1,000 FCFA</div>
+        <button class="add" onclick="addToCart()">أضف للسلة</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<button class="cart" onclick="showCart()">
+  🛒
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<script>
+
+let cart = 0;
+let french = false;
+
+function addToCart() {
+  cart++;
+  document.getElementById("cartCount").innerText = cart;
+
+  alert(
+    french
+    ? "Produit ajouté au panier !"
+    : "تمت إضافة المنتج إلى السلة!"
+  );
+}
+
+function showCart() {
+  alert(
+    french
+    ? "Votre panier contient " + cart + " article(s)."
+    : "السلة تحتوي على " + cart + " منتج."
+  );
+}
+
+function scrollToMenu() {
+  document.getElementById("menu").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function changeLanguage() {
+
+  french = !french;
+
+  if (french) {
+
+    document.documentElement.lang = "fr";
+    document.documentElement.dir = "ltr";
+
+    document.getElementById("title").innerText =
+      "Vos plats préférés où que vous soyez";
+
+    document.getElementById("description").innerText =
+      "Commandez facilement et profitez du goût de AL MADINA EXPRESS.";
+
+    document.getElementById("menuButton").innerText =
+      "Voir le menu";
+
+    document.getElementById("menuTitle").innerText =
+      "🍴 Notre menu";
+
+    document.querySelector(".language").innerText =
+      "العربية";
+
+    document.querySelectorAll(".category")[0].innerText = "Tout";
+    document.querySelectorAll(".category")[1].innerText = "🍔 Menus";
+    document.querySelectorAll(".category")[2].innerText = "🍗 Poulet";
+    document.querySelectorAll(".category")[3].innerText = "🍕 Pizza";
+    document.querySelectorAll(".category")[4].innerText = "🥤 Boissons";
+
+  } else {
+
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+
+    document.getElementById("title").innerText =
+      "طعامك المفضل أينما كنت";
+
+    document.getElementById("description").innerText =
+      "اطلب وجبتك بسهولة واستمتع بطعم المدينة إكسبرس.";
+
+    document.getElementById("menuButton").innerText =
+      "تصفح القائمة";
+
+    document.getElementById("menuTitle").innerText =
+      "🍴 قائمة الطعام";
+
+    document.querySelector(".language").innerText =
+      "Français";
+
+    document.querySelectorAll(".category")[0].innerText = "الكل";
+    document.querySelectorAll(".category")[1].innerText = "🍔 الوجبات";
+    document.querySelectorAll(".category")[2].innerText = "🍗 الدجاج";
+    document.querySelectorAll(".category")[3].innerText = "🍕 البيتزا";
+    document.querySelectorAll(".category")[4].innerText = "🥤 المشروبات";
+  }
+}
+
+</script>
+
+</body>
+</html>

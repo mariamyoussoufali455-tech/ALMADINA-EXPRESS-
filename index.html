@@ -59,6 +59,7 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 </section>
 
 <main id="menu">
+
 <h2>🍴 قائمة الطعام</h2>
 
 <div class="categories">
@@ -72,6 +73,7 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 </div>
 
 <div class="products" id="products"></div>
+
 </main>
 
 <footer>
@@ -80,9 +82,7 @@ AL MADINA EXPRESS<br>
 أنجمينا • تشاد 🇹🇩
 </footer>
 
-<button class="cart" onclick="openCart()">
-🛒<span class="count" id="count">0</span>
-</button>
+<button class="cart" onclick="openCart()">🛒<span class="count" id="count">0</span></button>
 
 <div class="panel" id="panel">
 <button class="close" onclick="closeCart()">×</button>
@@ -90,34 +90,10 @@ AL MADINA EXPRESS<br>
 <div id="cart"></div>
 </div>
 
-<script type="module">
+<script>
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const firebaseConfig={
-apiKey:"AIzaSyCQIo1-kWIprAGbsejA58mU6Q_JFd9h3N8",
-authDomain:"almadina-express-e5535.firebaseapp.com",
-projectId:"almadina-express-e5535",
-storageBucket:"almadina-express-e5535.firebasestorage.app",
-messagingSenderId:"51112257956",
-appId:"1:51112257956:web:9d47cb60c051b22a7eb931"
-};
-
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-const WHATSAPP_NUMBER="23591161659";
-
+/* رقم واتساب استقبال الطلبات */
+const WHATSAPP_NUMBER = "23591161659";
 
 const foods=[
 
@@ -168,20 +144,16 @@ const foods=[
 
 ];
 
-
 let cart=[];
 let fr=false;
-
 
 function money(x){
 return x.toLocaleString("fr-FR")+" FCFA";
 }
 
-
 function show(list=foods){
 
-document.getElementById("products").innerHTML=
-list.map(x=>`
+document.getElementById("products").innerHTML=list.map((x,i)=>`
 
 <div class="card">
 <img src="${x[4]}" alt="${x[0]}">
@@ -190,18 +162,13 @@ list.map(x=>`
 <h3>${fr?x[1]:x[0]}</h3>
 
 <p class="desc">
-${fr?
-"Délicieux repas préparé à la manière Al Madina":
-"وجبة شهية محضرة على طريقة المدينة إكسبرس"}
+${fr?"Délicieux repas préparé à la manière Al Madina":"وجبة شهية محضرة على طريقة المدينة إكسبرس"}
 </p>
 
 <div class="price">${money(x[3])}</div>
 
-<button class="add"
-onclick="add(${foods.indexOf(x)})">
-
+<button class="add" onclick="add(${foods.indexOf(x)})">
 ${fr?"Ajouter au panier":"أضف إلى السلة"}
-
 </button>
 
 </div>
@@ -211,22 +178,18 @@ ${fr?"Ajouter au panier":"أضف إلى السلة"}
 
 }
 
-
-window.filter=function(type,btn){
+function filter(type,btn){
 
 document.querySelectorAll(".cat")
 .forEach(x=>x.classList.remove("active"));
 
 btn.classList.add("active");
 
-show(type=="all"?
-foods:
-foods.filter(x=>x[2]==type));
+show(type=="all"?foods:foods.filter(x=>x[2]==type));
 
-};
+}
 
-
-window.add=function(i){
+function add(i){
 
 let item=cart.find(x=>x.id==i);
 
@@ -235,8 +198,7 @@ else cart.push({id:i,q:1});
 
 update();
 
-};
-
+}
 
 function update(){
 
@@ -252,29 +214,27 @@ return;
 
 }
 
-
 box.innerHTML=cart.map(x=>`
 
 <div class="item">
 
 <div>
-<strong>
-${fr?foods[x.id][1]:foods[x.id][0]}
-</strong>
+<strong>${fr?foods[x.id][1]:foods[x.id][0]}</strong>
 <br>
 ${money(foods[x.id][3])}
 </div>
 
 <div class="qty">
+
 <button onclick="change(${x.id},-1)">−</button>
 ${x.q}
 <button onclick="change(${x.id},1)">+</button>
+
 </div>
 
 </div>
 
 `).join("");
-
 
 box.innerHTML+=`
 
@@ -283,20 +243,15 @@ box.innerHTML+=`
 <strong>${money(total())}</strong>
 </div>
 
-<button class="primary"
-style="width:100%"
-onclick="checkout()">
-
+<button class="primary" style="width:100%" onclick="checkout()">
 متابعة الطلب
-
 </button>
 
 `;
 
 }
 
-
-window.change=function(i,n){
+function change(i,n){
 
 let x=cart.find(a=>a.id==i);
 
@@ -309,8 +264,7 @@ cart=cart.filter(a=>a.id!=i);
 
 update();
 
-};
-
+}
 
 function total(){
 
@@ -319,23 +273,20 @@ return cart.reduce(
 
 }
 
-
-window.openCart=function(){
+function openCart(){
 
 document.getElementById("panel").style.display="block";
 update();
 
-};
+}
 
-
-window.closeCart=function(){
+function closeCart(){
 
 document.getElementById("panel").style.display="none";
 
-};
+}
 
-
-window.checkout=function(){
+function checkout(){
 
 document.getElementById("cart").innerHTML=`
 
@@ -350,21 +301,12 @@ document.getElementById("cart").innerHTML=`
 <label>طريقة الطلب</label>
 
 <select id="type">
-
-<option value="delivery">
-🚗 توصيل إلى المنزل
-</option>
-
-<option value="pickup">
-🏪 استلام من المطعم
-</option>
-
+<option value="delivery">🚗 توصيل إلى المنزل</option>
+<option value="pickup">🏪 استلام من المطعم</option>
 </select>
 
 <label>العنوان</label>
-
-<textarea id="address"
-placeholder="العنوان بالتفصيل"></textarea>
+<textarea id="address" placeholder="العنوان بالتفصيل"></textarea>
 
 <label>وقت الاستلام</label>
 
@@ -376,36 +318,27 @@ placeholder="العنوان بالتفصيل"></textarea>
 </select>
 
 <div class="cash">
-
-💵 <strong>طريقة الدفع: كاش فقط</strong>
-<br>
+💵 <strong>طريقة الدفع: كاش فقط</strong><br>
 الدفع عند استلام الطلب.
-
 </div>
 
 <br>
 
-<button class="primary"
-style="width:100%"
-onclick="confirmOrder()">
-
-تأكيد الطلب
-
+<button class="primary" style="width:100%" onclick="confirmOrder()">
+تأكيد الطلب وإرسال الطلب إلى واتساب
 </button>
 
 `;
 
-};
+}
 
-
-window.confirmOrder=async function(){
+function confirmOrder(){
 
 let name=document.getElementById("name").value.trim();
 let phone=document.getElementById("phone").value.trim();
 let type=document.getElementById("type").value;
 let address=document.getElementById("address").value.trim();
 let time=document.getElementById("time").value;
-
 
 if(!name||!phone){
 
@@ -414,7 +347,6 @@ return;
 
 }
 
-
 if(type==="delivery"&&!address){
 
 alert("يرجى كتابة عنوان التوصيل");
@@ -422,217 +354,77 @@ return;
 
 }
 
+let number="MX-"+Math.floor(100000+Math.random()*900000);
 
-if(!cart.length){
-
-alert("السلة فارغة");
-return;
-
-}
-
-
-let number=
-"MX-"+Math.floor(100000+Math.random()*900000);
-
-
-let orderItems=cart.map(x=>{
+let items=cart.map(x=>{
 
 let food=foods[x.id];
 
-return {
-name:food[0],
-nameFr:food[1],
-quantity:x.q,
-price:food[3],
-subtotal:food[3]*x.q
-};
-
-});
-
-
-let itemsText=cart.map(x=>{
-
-let food=foods[x.id];
-
-return "• "+
-food[0]+" × "+
-x.q+" = "+
-money(food[3]*x.q);
+return "• "+food[0]+" × "+x.q+" = "+money(food[3]*x.q);
 
 }).join("\n");
-
 
 let method=
 type==="delivery"
 ?"🚗 توصيل إلى المنزل"
 :"🏪 استلام من المطعم";
 
-
-/* حفظ الطلب في Firebase */
-
-try{
-
-await addDoc(
-collection(db,"orders"),
-{
-orderNumber:number,
-customerName:name,
-phone:phone,
-orderType:type,
-address:type==="delivery"?address:"",
-pickupTime:time,
-payment:"Cash",
-items:orderItems,
-total:total(),
-status:"new",
-createdAt:serverTimestamp()
-});
-
-}catch(error){
-
-console.error("Firebase error:",error);
-
-}
-
-
-/* رسالة واتساب */
-
 let message=
-
 "🔔 *طلب جديد - المدينة إكسبرس*\n\n"+
-
 "🔢 رقم الطلب: "+number+"\n"+
 "👤 الاسم: "+name+"\n"+
 "📞 هاتف العميل: "+phone+"\n\n"+
-
 "🍽️ *الطلب:*\n"+
-itemsText+"\n\n"+
-
-"💰 *المجموع: "+
-money(total())+
-"*\n"+
-
+items+"\n\n"+
+"💰 *المجموع: "+money(total())+"*\n"+
 "💵 الدفع: كاش عند الاستلام\n"+
 "📦 الطريقة: "+method+"\n"+
 "⏰ الوقت: "+time+"\n"+
-
-(type==="delivery"?
-"📍 العنوان: "+address+"\n":"")+
-
+(type==="delivery"?"📍 العنوان: "+address+"\n":"")+
 "\nشكراً لاختيار المدينة إكسبرس ❤️";
 
-
-/* رابط التطبيق ورابط المتصفح */
-
-let whatsappApp=
-"whatsapp://send?phone="+
-WHATSAPP_NUMBER+
-"&text="+
-encodeURIComponent(message);
-
-let whatsappWeb=
-"https://wa.me/"+
-WHATSAPP_NUMBER+
-"?text="+
-encodeURIComponent(message);
-
-
-/* صفحة التأكيد */
+let whatsappURL=
+"https://wa.me/"+WHATSAPP_NUMBER+
+"?text="+encodeURIComponent(message);
 
 document.getElementById("cart").innerHTML=`
 
 <div style="text-align:center;padding:30px">
 
-<div style="font-size:60px">
-✅
-</div>
+<div style="font-size:60px">✅</div>
 
-<h2>تم تسجيل طلبك</h2>
+<h2>تم تجهيز طلبك</h2>
 
 <p>رقم الطلب</p>
 
-<h1 style="color:#8b1e2d">
-${number}
-</h1>
+<h1 style="color:#8b1e2d">${number}</h1>
 
 <p>
-اختاري طريقة إرسال الطلب:
+اضغط الزر لإرسال تفاصيل الطلب إلى واتساب المدينة إكسبرس.
 </p>
 
-
-<button
-onclick="openWhatsApp('${whatsappApp}','${whatsappWeb}')"
+<a href="${whatsappURL}"
+target="_blank"
 style="
-width:100%;
+display:block;
 background:#25D366;
 color:white;
-border:0;
+text-decoration:none;
 padding:15px;
 border-radius:25px;
 font-weight:bold;
-font-size:16px;
+margin-top:20px;
 ">
-
-📲 إرسال عبر واتساب
-
-</button>
-
-
-<br><br>
-
-
-<button
-onclick="window.open('${whatsappWeb}','_blank')"
-style="
-width:100%;
-background:#128C7E;
-color:white;
-border:0;
-padding:12px;
-border-radius:25px;
-font-weight:bold;
-">
-
-🌐 فتح واتساب عبر المتصفح
-
-</button>
+📲 إرسال الطلب إلى واتساب
+</a>
 
 </div>
 
 `;
 
-
-cart=[];
-document.getElementById("count").innerText="0";
-
-};
-
-
-/* فتح واتساب */
-
-window.openWhatsApp=function(appUrl,webUrl){
-
-/* محاولة فتح تطبيق واتساب */
-
-window.location.href=appUrl;
-
-
-/* إذا لم يفتح التطبيق ننتقل للمتصفح */
-
-setTimeout(function(){
-
-if(!document.hidden){
-
-window.location.href=webUrl;
-
 }
 
-},1800);
-
-};
-
-
-window.language=function(){
+function language(){
 
 fr=!fr;
 
@@ -640,21 +432,18 @@ document.querySelector(".lang").innerText=
 fr?"العربية":"Français";
 
 document.getElementById("title").innerText=
-
-fr?
-"Commandez maintenant, récupérez sans attendre":
-"اطلب الآن واستلم بدون انتظار";
+fr
+?"Commandez maintenant, récupérez sans attendre"
+:"اطلب الآن واستلم بدون انتظار";
 
 document.getElementById("text").innerText=
-
-fr?
-"Commandez avant votre arrivée ou choisissez la livraison.":
-"اطلب وجبتك مسبقًا أو اختر التوصيل إلى منزلك.";
+fr
+?"Commandez avant votre arrivée ou choisissez la livraison."
+:"اطلب وجبتك مسبقًا أو اختر التوصيل إلى منزلك.";
 
 show();
 
-};
-
+}
 
 show();
 

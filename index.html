@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#8b1e2d">
 <title>المدينة إكسبرس | AL MADINA EXPRESS</title>
 
@@ -13,151 +13,163 @@ button,input,textarea,select{font-family:inherit}
 button{cursor:pointer;border:0}
 
 header{
- background:#8b1e2d;color:white;padding:15px 18px;
- display:flex;justify-content:space-between;align-items:center;
- position:sticky;top:0;z-index:20
+background:#8b1e2d;color:#fff;padding:15px 18px;
+display:flex;justify-content:space-between;align-items:center;
+position:sticky;top:0;z-index:20
 }
 .logo{font-size:20px;font-weight:bold}
 .logo small{display:block;font-size:10px;margin-top:4px;opacity:.85}
-.lang{background:white;color:#8b1e2d;padding:8px 13px;border-radius:20px;font-weight:bold}
+.lang{background:#fff;color:#8b1e2d;padding:8px 13px;border-radius:20px;font-weight:bold}
 
 .hero{
- background:linear-gradient(135deg,#741625,#a82d40);
- color:white;padding:42px 22px;text-align:center
+background:linear-gradient(135deg,#741625,#a82d40);
+color:#fff;padding:45px 22px;text-align:center
 }
 .hero h1{font-size:32px;margin-bottom:12px}
 .hero p{line-height:1.8;margin-bottom:22px}
 .primary{
- background:#f2c542;color:#222;padding:13px 24px;
- border-radius:25px;font-weight:bold;font-size:16px
+background:#f2c542;color:#222;padding:13px 24px;
+border-radius:25px;font-weight:bold;font-size:16px
 }
 
 .section{max-width:1100px;margin:auto;padding:25px 16px}
 .section-title{font-size:25px;margin-bottom:17px}
 
 .categories{
- display:flex;gap:9px;overflow-x:auto;padding-bottom:17px
+display:flex;gap:9px;overflow-x:auto;padding-bottom:17px
 }
 .category{
- background:white;border:1px solid #ddd;padding:10px 17px;
- border-radius:22px;white-space:nowrap
+background:#fff;border:1px solid #ddd;padding:10px 17px;
+border-radius:22px;white-space:nowrap
 }
-.category.active{background:#8b1e2d;color:white}
+.category.active{background:#8b1e2d;color:#fff}
 
 .products{
- display:grid;grid-template-columns:repeat(2,1fr);gap:14px
+display:grid;grid-template-columns:repeat(2,1fr);gap:14px
 }
+
 .product{
- background:white;border-radius:15px;overflow:hidden;
- box-shadow:0 3px 12px rgba(0,0,0,.08)
+background:#fff;border-radius:15px;overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.08)
 }
+
 .food{
- height:105px;background:#eee7dc;
- display:flex;align-items:center;justify-content:center;
- font-size:55px
+height:155px;background:#eee7dc;overflow:hidden
 }
+.food img{
+width:100%;height:100%;object-fit:cover;display:block
+}
+
 .info{padding:12px}
 .info h3{font-size:16px;margin-bottom:6px}
-.description{font-size:12px;color:#777;margin-bottom:7px;line-height:1.5}
+.description{
+font-size:12px;color:#777;margin-bottom:7px;line-height:1.5
+}
 .price{color:#8b1e2d;font-weight:bold;margin-bottom:10px}
+
 .add{
- width:100%;background:#8b1e2d;color:white;
- padding:9px;border-radius:9px;font-weight:bold
+width:100%;background:#8b1e2d;color:#fff;
+padding:9px;border-radius:9px;font-weight:bold
 }
 
 .cart-button{
- position:fixed;bottom:20px;left:18px;
- width:60px;height:60px;border-radius:50%;
- background:#8b1e2d;color:white;font-size:25px;
- box-shadow:0 4px 18px #777;z-index:30
+position:fixed;bottom:20px;left:18px;
+width:60px;height:60px;border-radius:50%;
+background:#8b1e2d;color:#fff;font-size:25px;
+box-shadow:0 4px 18px #777;z-index:30
 }
+
 .cart-count{
- position:absolute;top:-4px;right:-3px;
- background:#f2c542;color:#222;width:23px;height:23px;
- border-radius:50%;font-size:12px;
- display:flex;align-items:center;justify-content:center
+position:absolute;top:-4px;right:-3px;
+background:#f2c542;color:#222;width:23px;height:23px;
+border-radius:50%;font-size:12px;
+display:flex;align-items:center;justify-content:center
 }
 
 .overlay{
- position:fixed;inset:0;background:rgba(0,0,0,.5);
- z-index:40;display:none
+position:fixed;inset:0;background:rgba(0,0,0,.5);
+z-index:40;display:none
 }
 .overlay.show{display:block}
 
 .panel{
- position:fixed;right:0;top:0;width:min(440px,100%);
- height:100%;background:#fff;z-index:50;
- overflow-y:auto;padding:20px
+position:fixed;right:0;top:0;
+width:min(440px,100%);height:100%;
+background:#fff;z-index:50;overflow-y:auto;padding:20px
 }
+
 .close{
- font-size:30px;background:none;color:#555;
- float:left
+font-size:30px;background:none;color:#555;float:left
 }
 .panel h2{margin:10px 0 20px}
 
 .cart-item{
- display:flex;justify-content:space-between;
- align-items:center;border-bottom:1px solid #eee;
- padding:13px 0;gap:10px
+display:flex;justify-content:space-between;
+align-items:center;border-bottom:1px solid #eee;
+padding:13px 0;gap:10px
 }
+
 .qty button{
- width:28px;height:28px;border-radius:50%;
- background:#eee
+width:28px;height:28px;border-radius:50%;background:#eee
 }
 .qty span{padding:0 8px}
 
 .total{
- display:flex;justify-content:space-between;
- font-size:19px;font-weight:bold;padding:20px 0
+display:flex;justify-content:space-between;
+font-size:19px;font-weight:bold;padding:20px 0
 }
 
 .choice{
- display:block;background:#f7f4ef;padding:12px;
- border-radius:10px;margin-bottom:9px
+display:block;background:#f7f4ef;
+padding:12px;border-radius:10px;margin-bottom:9px
 }
+
 .choice input{margin-left:7px}
 
 .form-group{margin-bottom:13px}
-.form-group label{display:block;margin-bottom:6px;font-weight:bold}
-.form-group input,.form-group textarea,.form-group select{
- width:100%;padding:12px;border:1px solid #ddd;
- border-radius:9px;background:white
+.form-group label{
+display:block;margin-bottom:6px;font-weight:bold
 }
-textarea{resize:vertical;min-height:75px}
 
+.form-group input,
+.form-group textarea,
+.form-group select{
+width:100%;padding:12px;border:1px solid #ddd;
+border-radius:9px;background:#fff
+}
+
+textarea{resize:vertical;min-height:75px}
 .full{width:100%;margin-top:8px}
 
-.empty{
- text-align:center;padding:35px 10px;color:#777
+.empty{text-align:center;padding:35px 10px;color:#777}
+
+.success{text-align:center;padding:20px 5px}
+
+.order-number{
+font-size:28px;color:#8b1e2d;
+font-weight:bold;margin:15px 0
 }
 
-.success{
- text-align:center;padding:20px 5px
-}
-.order-number{
- font-size:28px;color:#8b1e2d;font-weight:bold;
- margin:15px 0
-}
 .status{
- background:#f7f4ef;border-radius:12px;padding:15px;
- line-height:2
+background:#f7f4ef;border-radius:12px;
+padding:15px;line-height:2
 }
 
 .toast{
- position:fixed;bottom:90px;left:50%;
- transform:translateX(-50%);
- background:#222;color:white;padding:12px 20px;
- border-radius:25px;display:none;z-index:100
+position:fixed;bottom:90px;left:50%;
+transform:translateX(-50%);
+background:#222;color:#fff;padding:12px 20px;
+border-radius:25px;display:none;z-index:100
 }
 
 footer{
- margin-top:30px;background:#252525;color:white;
- text-align:center;padding:25px;line-height:1.8
+margin-top:30px;background:#252525;color:#fff;
+text-align:center;padding:25px;line-height:1.8
 }
 
 @media(min-width:700px){
- .products{grid-template-columns:repeat(4,1fr)}
- .hero{padding:65px}
+.products{grid-template-columns:repeat(4,1fr)}
+.hero{padding:65px}
 }
 </style>
 </head>
@@ -165,566 +177,746 @@ footer{
 <body>
 
 <header>
- <div class="logo">
-   🍽️ المدينة إكسبرس
-   <small>AL MADINA EXPRESS • N'DJAMENA 🇹🇩</small>
- </div>
- <button class="lang" onclick="toggleLanguage()">Français</button>
+<div class="logo">
+🍽️ المدينة إكسبرس
+<small>AL MADINA EXPRESS • N'DJAMENA 🇹🇩</small>
+</div>
+
+<button class="lang" onclick="toggleLanguage()">
+Français
+</button>
 </header>
 
 <section class="hero">
- <h1 id="heroTitle">اطلب الآن واستلم بدون انتظار</h1>
- <p id="heroText">
-   اطلب وجبتك مسبقًا قبل وصولك إلى المطعم،
-   أو اختر التوصيل إلى منزلك.
- </p>
- <button class="primary" onclick="goMenu()" id="heroButton">
-   تصفح القائمة
- </button>
+
+<h1 id="heroTitle">
+اطلب الآن واستلم بدون انتظار
+</h1>
+
+<p id="heroText">
+اطلب وجبتك مسبقًا قبل وصولك إلى المطعم،
+أو اختر التوصيل إلى منزلك.
+</p>
+
+<button class="primary" onclick="goMenu()" id="heroButton">
+تصفح القائمة
+</button>
+
 </section>
 
 <section class="section" id="menu">
 
- <h2 class="section-title" id="menuTitle">🍴 قائمة المدينة إكسبرس</h2>
+<h2 class="section-title" id="menuTitle">
+🍴 قائمة المدينة إكسبرس
+</h2>
 
- <div class="categories">
-   <button class="category active" onclick="filterProducts('all',this)">الكل</button>
-   <button class="category" onclick="filterProducts('meals',this)">🍱 الوجبات</button>
-   <button class="category" onclick="filterProducts('chicken',this)">🍗 الدجاج</button>
-   <button class="category" onclick="filterProducts('meat',this)">🥩 اللحوم</button>
-   <button class="category" onclick="filterProducts('pizza',this)">🍕 البيتزا</button>
-   <button class="category" onclick="filterProducts('sandwich',this)">🥪 الساندويتش</button>
-   <button class="category" onclick="filterProducts('sides',this)">🍟 المقبلات</button>
-   <button class="category" onclick="filterProducts('drinks',this)">🥤 المشروبات</button>
-   <button class="category" onclick="filterProducts('dessert',this)">🍰 الحلويات</button>
- </div>
+<div class="categories">
 
- <div class="products" id="products"></div>
+<button class="category active"
+onclick="filterProducts('all',this)">
+الكل
+</button>
+
+<button class="category"
+onclick="filterProducts('meals',this)">
+🍱 الوجبات
+</button>
+
+<button class="category"
+onclick="filterProducts('chicken',this)">
+🍗 الدجاج
+</button>
+
+<button class="category"
+onclick="filterProducts('meat',this)">
+🥩 اللحوم
+</button>
+
+<button class="category"
+onclick="filterProducts('pizza',this)">
+🍕 البيتزا
+</button>
+
+<button class="category"
+onclick="filterProducts('sandwich',this)">
+🥪 الساندويتش
+</button>
+
+<button class="category"
+onclick="filterProducts('sides',this)">
+🍟 المقبلات
+</button>
+
+<button class="category"
+onclick="filterProducts('drinks',this)">
+🥤 المشروبات
+</button>
+
+<button class="category"
+onclick="filterProducts('dessert',this)">
+🍰 الحلويات
+</button>
+
+</div>
+
+<div class="products" id="products"></div>
 
 </section>
 
 <footer>
- <strong>المدينة إكسبرس</strong><br>
- AL MADINA EXPRESS<br>
- أنجمينا • تشاد 🇹🇩<br>
- <span id="footerText">طلبك جاهز عندما تصل</span>
+<strong>المدينة إكسبرس</strong><br>
+AL MADINA EXPRESS<br>
+أنجمينا • تشاد 🇹🇩<br>
+<span id="footerText">طلبك جاهز عندما تصل</span>
 </footer>
 
 <button class="cart-button" onclick="openCart()">
- 🛒
- <span class="cart-count" id="cartCount">0</span>
+🛒
+<span class="cart-count" id="cartCount">0</span>
 </button>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 
 <div class="panel" id="panel">
 
- <button class="close" onclick="closeCart()">×</button>
+<button class="close" onclick="closeCart()">×</button>
 
- <h2 id="cartTitle">🛒 سلة الطلب</h2>
+<h2 id="cartTitle">
+🛒 سلة الطلب
+</h2>
 
- <div id="cartContent"></div>
+<div id="cartContent"></div>
 
 </div>
 
 <div class="toast" id="toast"></div>
 
-
 <script>
 
-const products = [
+const products=[
 
- {id:1,cat:"meals",name:"وجبة المدينة",fr:"Menu Al Madina",desc:"وجبة كاملة مع البطاطا والمشروب",price:6000,icon:"🍱"},
- {id:2,cat:"meals",name:"وجبة عائلية",fr:"Menu Familial",desc:"وجبة مناسبة للعائلة",price:12000,icon:"🍱"},
+{id:1,cat:"meals",name:"وجبة المدينة",fr:"Menu Al Madina",
+desc:"وجبة كاملة مع البطاطا والمشروب",price:6000,
+image:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=85"},
 
- {id:3,cat:"chicken",name:"دجاج مشوي",fr:"Poulet Grillé",desc:"دجاج مشوي مع الأرز والسلطة",price:5000,icon:"🍗"},
- {id:4,cat:"chicken",name:"دجاج مقلي",fr:"Poulet Frit",desc:"دجاج مقرمش مع البطاطا",price:4500,icon:"🍗"},
- {id:5,cat:"chicken",name:"نصف دجاجة",fr:"Demi Poulet",desc:"نصف دجاجة مشوية",price:3500,icon:"🍗"},
+{id:2,cat:"meals",name:"وجبة عائلية",fr:"Menu Familial",
+desc:"وجبة مناسبة للعائلة",price:12000,
+image:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=85"},
 
- {id:6,cat:"meat",name:"لحم مشوي",fr:"Viande Grillée",desc:"لحم مشوي مع الأرز والسلطة",price:6000,icon:"🥩"},
- {id:7,cat:"meat",name:"ستيك لحم",fr:"Steak de Bœuf",desc:"ستيك لحم مشوي",price:7000,icon:"🥩"},
+{id:3,cat:"chicken",name:"دجاج مشوي",fr:"Poulet Grillé",
+desc:"دجاج مشوي مع الأرز والسلطة",price:5000,
+image:"https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=700&q=85"},
 
- {id:8,cat:"pizza",name:"بيتزا المدينة",fr:"Pizza Al Madina",desc:"بيتزا بالخضار والجبن",price:5000,icon:"🍕"},
- {id:9,cat:"pizza",name:"بيتزا دجاج",fr:"Pizza Poulet",desc:"بيتزا بالدجاج والجبن",price:6000,icon:"🍕"},
- {id:10,cat:"pizza",name:"بيتزا لحم",fr:"Pizza Viande",desc:"بيتزا باللحم والجبن",price:6500,icon:"🍕"},
+{id:4,cat:"chicken",name:"دجاج مقلي",fr:"Poulet Frit",
+desc:"دجاج مقرمش مع البطاطا",price:4500,
+image:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=85"},
 
- {id:11,cat:"sandwich",name:"برغر المدينة",fr:"Burger Al Madina",desc:"برغر لحم مع الجبن والخضار",price:3500,icon:"🍔"},
- {id:12,cat:"sandwich",name:"برغر دجاج",fr:"Chicken Burger",desc:"برغر دجاج مقرمش",price:3500,icon:"🍔"},
- {id:13,cat:"sandwich",name:"شاورما دجاج",fr:"Shawarma Poulet",desc:"شاورما دجاج مع الصوص",price:3000,icon:"🌯"},
- {id:14,cat:"sandwich",name:"ساندويتش لحم",fr:"Sandwich Viande",desc:"ساندويتش لحم وخضار",price:3500,icon:"🥪"},
+{id:5,cat:"chicken",name:"نصف دجاجة",fr:"Demi Poulet",
+desc:"نصف دجاجة مشوية",price:3500,
+image:"https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=85"},
 
- {id:15,cat:"sides",name:"بطاطا مقلية",fr:"Frites",desc:"بطاطا مقلية",price:1500,icon:"🍟"},
- {id:16,cat:"sides",name:"سلطة",fr:"Salade",desc:"سلطة طازجة",price:1500,icon:"🥗"},
- {id:17,cat:"sides",name:"أرز",fr:"Riz",desc:"أرز أبيض",price:1500,icon:"🍚"},
+{id:6,cat:"meat",name:"لحم مشوي",fr:"Viande Grillée",
+desc:"لحم مشوي مع الأرز والسلطة",price:6000,
+image:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85"},
 
- {id:18,cat:"drinks",name:"كوكا كولا",fr:"Coca-Cola",desc:"مشروب غازي",price:1000,icon:"🥤"},
- {id:19,cat:"drinks",name:"فانتا",fr:"Fanta",desc:"مشروب غازي",price:1000,icon:"🥤"},
- {id:20,cat:"drinks",name:"سبرايت",fr:"Sprite",desc:"مشروب غازي",price:1000,icon:"🥤"},
- {id:21,cat:"drinks",name:"ماء",fr:"Eau",desc:"مياه معدنية",price:500,icon:"💧"},
- {id:22,cat:"drinks",name:"عصير طبيعي",fr:"Jus Naturel",desc:"عصير فواكه طبيعي",price:2000,icon:"🧃"},
+{id:7,cat:"meat",name:"ستيك لحم",fr:"Steak de Bœuf",
+desc:"ستيك لحم مشوي",price:7000,
+image:"https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=700&q=85"},
 
- {id:23,cat:"dessert",name:"كيك",fr:"Gâteau",desc:"قطعة كيك",price:2000,icon:"🍰"},
- {id:24,cat:"dessert",name:"آيس كريم",fr:"Glace",desc:"آيس كريم",price:1500,icon:"🍦"},
- {id:25,cat:"dessert",name:"سلطة فواكه",fr:"Salade de Fruits",desc:"فواكه طازجة",price:2500,icon:"🍓"}
+{id:8,cat:"pizza",name:"بيتزا المدينة",fr:"Pizza Al Madina",
+desc:"بيتزا بالخضار والجبن",price:5000,
+image:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=85"},
+
+{id:9,cat:"pizza",name:"بيتزا دجاج",fr:"Pizza Poulet",
+desc:"بيتزا بالدجاج والجبن",price:6000,
+image:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85"},
+
+{id:10,cat:"pizza",name:"بيتزا لحم",fr:"Pizza Viande",
+desc:"بيتزا باللحم والجبن",price:6500,
+image:"https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=700&q=85"},
+
+{id:11,cat:"sandwich",name:"برغر المدينة",fr:"Burger Al Madina",
+desc:"برغر لحم مع الجبن والخضار",price:3500,
+image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=85"},
+
+{id:12,cat:"sandwich",name:"برغر دجاج",fr:"Chicken Burger",
+desc:"برغر دجاج مقرمش",price:3500,
+image:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=85"},
+
+{id:13,cat:"sandwich",name:"شاورما دجاج",fr:"Shawarma Poulet",
+desc:"شاورما دجاج مع الصوص",price:3000,
+image:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=700&q=85"},
+
+{id:14,cat:"sandwich",name:"ساندويتش لحم",fr:"Sandwich Viande",
+desc:"ساندويتش لحم وخضار",price:3500,
+image:"https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=700&q=85"},
+
+{id:15,cat:"sides",name:"بطاطا مقلية",fr:"Frites",
+desc:"بطاطا مقلية",price:1500,
+image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=85"},
+
+{id:16,cat:"sides",name:"سلطة",fr:"Salade",
+desc:"سلطة طازجة",price:1500,
+image:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=85"},
+
+{id:17,cat:"sides",name:"أرز",fr:"Riz",
+desc:"أرز أبيض",price:1500,
+image:"https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=700&q=85"},
+
+{id:18,cat:"drinks",name:"كوكا كولا",fr:"Coca-Cola",
+desc:"مشروب غازي",price:1000,
+image:"https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=700&q=85"},
+
+{id:19,cat:"drinks",name:"عصير طبيعي",fr:"Jus Naturel",
+desc:"عصير فواكه طبيعي",price:2000,
+image:"https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=700&q=85"},
+
+{id:20,cat:"drinks",name:"ماء معدني",fr:"Eau",
+desc:"مياه معدنية",price:500,
+image:"https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=700&q=85"},
+
+{id:21,cat:"dessert",name:"كيك",fr:"Gâteau",
+desc:"قطعة كيك",price:2000,
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=85"},
+
+{id:22,cat:"dessert",name:"آيس كريم",fr:"Glace",
+desc:"آيس كريم",price:1500,
+image:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=85"}
 
 ];
 
 let cart=[];
 let french=false;
 
-
-function money(n){
- return n.toLocaleString("fr-FR")+" FCFA";
-}
-
+const money=n=>n.toLocaleString("fr-FR")+" FCFA";
 
 function renderProducts(list=products){
 
- const box=document.getElementById("products");
+document.getElementById("products").innerHTML=list.map(p=>`
 
- box.innerHTML=list.map(p=>`
+<div class="product">
 
- <div class="product">
+<div class="food">
+<img src="${p.image}" alt="${p.name}" loading="lazy">
+</div>
 
-   <div class="food">${p.icon}</div>
+<div class="info">
 
-   <div class="info">
+<h3>${french?p.fr:p.name}</h3>
 
-     <h3>${french?p.fr:p.name}</h3>
+<div class="description">
+${p.desc}
+</div>
 
-     <div class="description">${p.desc}</div>
+<div class="price">
+${money(p.price)}
+</div>
 
-     <div class="price">${money(p.price)}</div>
+<button class="add" onclick="addToCart(${p.id})">
+${french?"Ajouter":"أضف للسلة"}
+</button>
 
-     <button class="add" onclick="addToCart(${p.id})">
-       ${french?"Ajouter":"أضف للسلة"}
-     </button>
+</div>
 
-   </div>
+</div>
 
- </div>
-
- `).join("");
+`).join("");
 
 }
-
 
 function filterProducts(cat,btn){
 
- document.querySelectorAll(".category")
- .forEach(x=>x.classList.remove("active"));
+document.querySelectorAll(".category")
+.forEach(x=>x.classList.remove("active"));
 
- btn.classList.add("active");
+btn.classList.add("active");
 
- renderProducts(
-   cat==="all"
-   ?products
-   :products.filter(p=>p.cat===cat)
- );
+renderProducts(
+cat==="all"
+?products
+:products.filter(p=>p.cat===cat)
+);
 
 }
-
 
 function addToCart(id){
 
- const item=cart.find(x=>x.id===id);
+let x=cart.find(i=>i.id===id);
 
- if(item) item.qty++;
- else cart.push({id,qty:1});
+x?x.qty++:cart.push({id,qty:1});
 
- updateCart();
+updateCart();
 
- showToast(
-   french
-   ?"Produit ajouté au panier"
-   :"تمت إضافة المنتج إلى السلة"
- );
+showToast(
+french
+?"Produit ajouté au panier"
+:"تمت إضافة المنتج إلى السلة"
+);
 
 }
-
 
 function removeItem(id){
 
- cart=cart.filter(x=>x.id!==id);
- updateCart();
+cart=cart.filter(x=>x.id!==id);
+updateCart();
 
 }
 
+function changeQty(id,a){
 
-function changeQty(id,amount){
+let x=cart.find(i=>i.id===id);
 
- const item=cart.find(x=>x.id===id);
+if(!x)return;
 
- if(!item)return;
+x.qty+=a;
 
- item.qty+=amount;
-
- if(item.qty<=0)
-   cart=cart.filter(x=>x.id!==id);
-
- updateCart();
-
+if(x.qty<=0){
+cart=cart.filter(i=>i.id!==id);
 }
 
+updateCart();
+
+}
 
 function total(){
 
- return cart.reduce((sum,item)=>{
-
-   const p=products.find(x=>x.id===item.id);
-
-   return sum+(p.price*item.qty);
-
- },0);
+return cart.reduce(
+(s,x)=>s+products.find(p=>p.id===x.id).price*x.qty,0
+);
 
 }
-
 
 function updateCart(){
 
- document.getElementById("cartCount").innerText=
- cart.reduce((s,x)=>s+x.qty,0);
+document.getElementById("cartCount").innerText=
+cart.reduce((s,x)=>s+x.qty,0);
 
- const box=document.getElementById("cartContent");
+let box=document.getElementById("cartContent");
 
- if(cart.length===0){
+if(!cart.length){
 
-   box.innerHTML=`
-    <div class="empty">
-      🛒<br><br>
-      ${french?"Votre panier est vide":"السلة فارغة"}
-    </div>
-   `;
+box.innerHTML=`
+<div class="empty">
+🛒<br><br>
+${french?"Votre panier est vide":"السلة فارغة"}
+</div>`;
 
-   return;
- }
-
-
- box.innerHTML=`
-
- ${cart.map(item=>{
-
-   const p=products.find(x=>x.id===item.id);
-
-   return`
-
-   <div class="cart-item">
-
-    <div>
-      <strong>${french?p.fr:p.name}</strong><br>
-      <small>${money(p.price)}</small>
-    </div>
-
-    <div class="qty">
-      <button onclick="changeQty(${p.id},-1)">−</button>
-      <span>${item.qty}</span>
-      <button onclick="changeQty(${p.id},1)">+</button>
-    </div>
-
-    <button onclick="removeItem(${p.id})">🗑️</button>
-
-   </div>
-
-   `;
-
- }).join("")}
-
-
- <div class="total">
-   <span>${french?"Total":"المجموع"}</span>
-   <strong>${money(total())}</strong>
- </div>
-
- <button class="primary full" onclick="checkout()">
-   ${french?"Continuer la commande":"متابعة الطلب"}
- </button>
-
- `;
-
+return;
 }
 
+box.innerHTML=
+
+cart.map(x=>{
+
+let p=products.find(q=>q.id===x.id);
+
+return`
+
+<div class="cart-item">
+
+<div>
+<strong>${french?p.fr:p.name}</strong><br>
+<small>${money(p.price)}</small>
+</div>
+
+<div class="qty">
+
+<button onclick="changeQty(${p.id},-1)">−</button>
+
+<span>${x.qty}</span>
+
+<button onclick="changeQty(${p.id},1)">+</button>
+
+</div>
+
+<button onclick="removeItem(${p.id})">
+🗑️
+</button>
+
+</div>
+
+`;
+
+}).join("")
+
++`
+
+<div class="total">
+
+<span>
+${french?"Total":"المجموع"}
+</span>
+
+<strong>
+${money(total())}
+</strong>
+
+</div>
+
+<button class="primary full" onclick="checkout()">
+${french?"Continuer la commande":"متابعة الطلب"}
+</button>
+
+`;
+
+}
 
 function openCart(){
 
- document.getElementById("overlay").classList.add("show");
- document.getElementById("panel").style.display="block";
+document.getElementById("overlay")
+.classList.add("show");
 
- updateCart();
+document.getElementById("panel")
+.style.display="block";
+
+updateCart();
 
 }
-
 
 function closeCart(){
 
- document.getElementById("overlay").classList.remove("show");
- document.getElementById("panel").style.display="none";
+document.getElementById("overlay")
+.classList.remove("show");
+
+document.getElementById("panel")
+.style.display="none";
 
 }
-
 
 function checkout(){
 
- if(cart.length===0)return;
+document.getElementById("cartContent").innerHTML=`
 
- document.getElementById("cartContent").innerHTML=`
+<h3>
+${french?"Informations de commande":"بيانات الطلب"}
+</h3>
 
- <h3>${french?"Informations de commande":"بيانات الطلب"}</h3>
+<br>
 
- <br>
+<div class="choice">
+<label>
+<input type="radio" name="orderType"
+value="delivery" checked>
+${french?"Livraison à domicile":"🚗 توصيل إلى المنزل"}
+</label>
+</div>
 
- <div class="choice">
-   <label>
-   <input type="radio" name="orderType" value="delivery" checked>
-   ${french?"Livraison à domicile":"🚗 توصيل إلى المنزل"}
-   </label>
- </div>
+<div class="choice">
+<label>
+<input type="radio" name="orderType"
+value="pickup">
+${french?"Commander et récupérer au restaurant":"🏪 اطلب الآن واستلم عند الوصول"}
+</label>
+</div>
 
- <div class="choice">
-   <label>
-   <input type="radio" name="orderType" value="pickup">
-   ${french?"Commander et récupérer au restaurant":"🏪 اطلب الآن واستلم عند الوصول"}
-   </label>
- </div>
+<div class="form-group">
+<label>${french?"Nom":"الاسم"}</label>
+<input id="customerName">
+</div>
 
- <div class="form-group">
-   <label>${french?"Nom":"الاسم"}</label>
-   <input id="customerName" placeholder="${french?"Votre nom":"اسمك"}">
- </div>
+<div class="form-group">
+<label>${french?"Téléphone":"رقم الهاتف"}</label>
+<input id="phone" type="tel" placeholder="+235">
+</div>
 
- <div class="form-group">
-   <label>${french?"Téléphone":"رقم الهاتف"}</label>
-   <input id="phone" type="tel" placeholder="+235">
- </div>
+<div class="form-group">
+<label>${french?"Adresse":"العنوان"}</label>
+<textarea id="address"></textarea>
+</div>
 
- <div class="form-group">
-   <label>${french?"Adresse":"العنوان"}</label>
-   <textarea id="address" placeholder="${french?"Adresse de livraison":"عنوان التوصيل"}></textarea>
- </div>
+<div class="form-group">
+<label>${french?"Heure souhaitée":"وقت الاستلام"}</label>
 
- <div class="form-group">
-   <label>${french?"Heure souhaitée":"وقت الاستلام"}</label>
-   <select id="time">
-     <option>ASAP</option>
-     <option>بعد 15 دقيقة</option>
-     <option>بعد 30 دقيقة</option>
-     <option>بعد ساعة</option>
-   </select>
- </div>
+<select id="time">
 
- <div class="form-group">
-   <label>${french?"Note":"ملاحظات"}</label>
-   <textarea id="note" placeholder="${french?"Note pour le restaurant":"ملاحظات للمطعم"}"></textarea>
- </div>
+<option>ASAP</option>
+<option>بعد 15 دقيقة</option>
+<option>بعد 30 دقيقة</option>
+<option>بعد ساعة</option>
 
- <div class="total">
-   <span>${french?"Total":"المجموع"}</span>
-   <strong>${money(total())}</strong>
- </div>
+</select>
 
- <button class="primary full" onclick="confirmOrder()">
-   ${french?"Confirmer la commande":"تأكيد الطلب"}
- </button>
+</div>
 
- `;
+<div class="form-group">
 
+<label>
+${french?"Note":"ملاحظات"}
+</label>
+
+<textarea id="note"></textarea>
+
+</div>
+
+<div class="total">
+
+<span>
+${french?"Total":"المجموع"}
+</span>
+
+<strong>
+${money(total())}
+</strong>
+
+</div>
+
+<button class="primary full"
+onclick="confirmOrder()">
+
+${french?"Confirmer la commande":"تأكيد الطلب"}
+
+</button>
+
+`;
+
+}function confirmOrder(){
+
+let name=document.getElementById("customerName").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let address=document.getElementById("address").value.trim();
+
+if(!name || !phone){
+
+alert(
+french
+?"Veuillez entrer votre nom et téléphone."
+:"يرجى إدخال الاسم ورقم الهاتف."
+);
+
+return;
 }
 
+let number="MX-"+Math.floor(100000+Math.random()*900000);
 
-function confirmOrder(){
+let order={
+number:number,
+name:name,
+phone:phone,
+address:address,
+type:document.querySelector(
+'input[name="orderType"]:checked'
+).value,
+time:document.getElementById("time").value,
+total:total(),
+status:"received"
+};
 
- const name=document.getElementById("customerName").value.trim();
- const phone=document.getElementById("phone").value.trim();
- const address=document.getElementById("address").value.trim();
+localStorage.setItem(
+"madinaOrder",
+JSON.stringify(order)
+);
 
- if(!name || !phone){
+cart=[];
 
-   alert(
-    french
-    ?"Veuillez entrer votre nom et téléphone."
-    :"يرجى إدخال الاسم ورقم الهاتف."
-   );
+document.getElementById("cartCount").innerText="0";
 
-   return;
- }
+document.getElementById("cartContent").innerHTML=`
 
+<div class="success">
 
- const type=document.querySelector(
-   'input[name="orderType"]:checked'
- ).value;
+<div style="font-size:55px">
+✅
+</div>
 
- const orderNumber=
-   "MX-"+Math.floor(100000+Math.random()*900000);
+<h2>
+${french?"Commande confirmée":"تم تأكيد طلبك"}
+</h2>
 
+<p>
+${french
+?"Votre commande a été enregistrée."
+:"تم تسجيل طلبك بنجاح."}
+</p>
 
- localStorage.setItem(
-   "madinaOrder",
-   JSON.stringify({
-     number:orderNumber,
-     name:name,
-     phone:phone,
-     address:address,
-     type:type,
-     total:total(),
-     status:"received"
-   })
- );
+<div class="order-number">
+${number}
+</div>
 
+<div class="status">
 
- document.getElementById("cartContent").innerHTML=`
+🟢
+${french
+?"Commande reçue"
+:"تم استلام الطلب"}
 
- <div class="success">
+<br>
 
-   <div style="font-size:55px">✅</div>
+🟡
+${french
+?"Préparation en cours"
+:"جاري تحضير الطلب"}
 
-   <h2>
-   ${french?"Commande confirmée":"تم تأكيد طلبك"}
-   </h2>
+<br>
 
-   <p>
-   ${french
-   ?"Votre commande a été enregistrée."
-   :"تم تسجيل طلبك بنجاح."}
-   </p>
+⚪
+${french
+?"Prêt / Livraison"
+:"جاهز / في طريقه إليك"}
 
-   <div class="order-number">
-     ${orderNumber}
-   </div>
+</div>
 
-   <div class="status">
+<br>
 
-     🟢 ${french?"Commande reçue":"تم استلام الطلب"}<br>
-     🟡 ${french?"Préparation en cours":"جاري تحضير الطلب"}<br>
-     ⚪ ${french?"Prêt / Livraison":"جاهز / في طريقه إليك"}
+<button
+class="primary full"
+onclick="trackOrder()">
 
-   </div>
+${french
+?"Suivre la commande"
+:"تتبع الطلب"}
 
-   <br>
+</button>
 
-   <button class="primary full" onclick="trackOrder()">
-     ${french?"Suivre la commande":"تتبع الطلب"}
-   </button>
+</div>
 
- </div>
-
- `;
-
-
- cart=[];
-
- document.getElementById("cartCount").innerText="0";
+`;
 
 }
 
 
 function trackOrder(){
 
- const order=JSON.parse(
-   localStorage.getItem("madinaOrder")
- );
+let o=JSON.parse(
+localStorage.getItem("madinaOrder")
+);
 
- if(!order){
+if(!o)return;
 
-   alert(
-    french
-    ?"Aucune commande trouvée."
-    :"لا يوجد طلب محفوظ."
-   );
+document.getElementById("cartContent").innerHTML=`
 
-   return;
- }
+<div class="success">
 
+<div style="font-size:55px">
+📦
+</div>
 
- document.getElementById("cartContent").innerHTML=`
+<h2>
+${french
+?"Suivi de commande"
+:"تتبع الطلب"}
+</h2>
 
- <div class="success">
+<div class="order-number">
+${o.number}
+</div>
 
-   <div style="font-size:55px">📦</div>
+<div class="status">
 
-   <h2>${french?"Suivi de commande":"تتبع الطلب"}</h2>
+🟢
+${french
+?"Commande reçue"
+:"تم استلام الطلب"}
 
-   <div class="order-number">
-     ${order.number}
-   </div>
+<br>
 
-   <div class="status">
+🟡
+${french
+?"Préparation"
+:"جاري التحضير"}
 
-     🟢 ${french?"Commande reçue":"تم استلام الطلب"}<br>
-     🟡 ${french?"Préparation":"جاري التحضير"}<br>
-     ⚪ ${french?"Livraison / Prêt":"التوصيل / جاهز للاستلام"}
+<br>
 
-   </div>
+⚪
+${french
+?"Livraison / Prêt"
+:"التوصيل / جاهز للاستلام"}
 
-   <br>
+</div>
 
-   <strong>
-   ${money(order.total)}
-   </strong>
+<br>
 
- </div>
+<strong>
+${money(o.total)}
+</strong>
 
- `;
+</div>
+
+`;
 
 }
 
 
 function goMenu(){
 
- document.getElementById("menu")
- .scrollIntoView({behavior:"smooth"});
+document.getElementById("menu")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
 
-function showToast(text){
+function showToast(t){
 
- const toast=document.getElementById("toast");
+let x=document.getElementById("toast");
 
- toast.innerText=text;
- toast.style.display="block";
+x.innerText=t;
 
- setTimeout(()=>{
-   toast.style.display="none";
- },1800);
+x.style.display="block";
+
+setTimeout(
+()=>x.style.display="none",
+1800
+);
 
 }
 
 
 function toggleLanguage(){
 
- french=!french;
+french=!french;
 
- document.documentElement.lang=french?"fr":"ar";
- document.documentElement.dir=french?"ltr":"rtl";
+document.documentElement.lang=
+french?"fr":"ar";
 
- document.querySelector(".lang").innerText=
-   french?"العربية":"Français";
+document.documentElement.dir=
+french?"ltr":"rtl";
 
- document.getElementById("heroTitle").innerText=
-   french
-   ?"Commandez maintenant, récupérez sans attendre"
-   :"اطلب الآن واستلم بدون انتظار";
+document.querySelector(".lang").innerText=
+french?"العربية":"Français";
 
- document.getElementById("heroText").innerText=
-   french
-   ?"Commandez avant votre arrivée ou choisissez la livraison à domicile."
-   :"اطلب وجبتك مسبقًا قبل وصولك إلى المطعم، أو اختر التوصيل إلى منزلك.";
 
- document.getElementById("heroButton").innerText=
-   french?"Voir le menu":"تصفح القائمة";
+document.getElementById("heroTitle").innerText=
 
- document.getElementById("menuTitle").innerText=
-   french?"🍴 Menu Al Madina":"🍴 قائمة المدينة إكسبرس";
+french
+?"Commandez maintenant, récupérez sans attendre"
+:"اطلب الآن واستلم بدون انتظار";
 
- document.getElementById("footerText").innerText=
-   french
-   ?"Votre commande sera prête à votre arrivée"
-   :"طلبك جاهز عندما تصل";
 
- renderProducts();
+document.getElementById("heroText").innerText=
 
- updateCart();
+french
+?"Commandez avant votre arrivée ou choisissez la livraison à domicile."
+:"اطلب وجبتك مسبقًا قبل وصولك إلى المطعم، أو اختر التوصيل إلى منزلك.";
+
+
+document.getElementById("heroButton").innerText=
+
+french
+?"Voir le menu"
+:"تصفح القائمة";
+
+
+document.getElementById("menuTitle").innerText=
+
+french
+?"🍴 Menu Al Madina"
+:"🍴 قائمة المدينة إكسبرس";
+
+
+document.getElementById("footerText").innerText=
+
+french
+?"Votre commande sera prête à votre arrivée"
+:"طلبك جاهز عندما تصل";
+
+
+renderProducts();
+
+updateCart();
 
 }
+
 
 renderProducts();
 

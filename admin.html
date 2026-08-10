@@ -1,1 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إدارة المدينة إكسبرس</title>
 
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial;
+background:#f5f1eb;
+color:#222;
+}
+
+header{
+background:#8b1e2d;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+header h1{
+margin:0;
+font-size:24px;
+}
+
+header p{
+margin:7px 0 0;
+font-size:13px;
+}
+
+main{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:20px;
+}
+
+.stat{
+background:white;
+padding:18px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 2px 8px #0001;
+}
+
+.stat strong{
+display:block;
+font-size:25px;
+color:#8b1e2d;
+margin-top:7px;
+}
+
+.order{
+background:white;
+border-radius:15px;
+padding:18px;
+margin-bottom:15px;
+box-shadow:0 3px 12px #0001;
+}
+
+.order-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #eee;
+padding-bottom:12px;
+}
+
+.order-number{
+font-weight:bold;
+color:#8b1e2d;
+}
+
+.badge{
+padding:7px 12px;
+border-radius:20px;
+font-size:12px;
+background:#fff1bd;
+}
+
+.info{
+line-height:1.8;
+font-size:14px;
+margin-top:12px;
+}
+
+.items{
+background:#faf8f5;
+border-radius:10px;
+padding:12px;
+margin:12px 0;
+}
+
+.total{
+font-size:19px;
+font-weight:bold;
+color:#8b1e2d;
+}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+.actions button{
+border:0;
+border-radius:8px;
+padding:10px 14px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.preparing{
+background:#ffe29a;
+}
+
+.ready{
+background:#bde7c5;
+}
+
+.done{
+background:#ddd;
+}
+
+.cancel{
+background:#f4b5b5;
+}
+
+.empty{
+background:white;
+padding:40px;
+text-align:center;
+border-radius:15px;
+color:#777;
+}
+
+@media(max-width:600px){
+
+.stats{
+grid-template-columns:1fr 1fr 1fr;
+}
+
+.stat{
+padding:12px 5px;
+font-size:12px;
+}
+
+.stat strong{
+font-size:20px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🍽️ المدينة إكسبرس</h1>
+
+<p>
+AL MADINA EXPRESS • لوحة إدارة المطعم
+</p>
+
+</header>
+
+<main>
+
+<div class="stats">
+
+<div class="stat">
+طلبات اليوم
+<strong id="ordersCount">0</strong>
+</div>
+
+<div class="stat">
+قيد التحضير
+<strong id="preparingCount">0</strong>
+</div>
+
+<div class="stat">
+الإيرادات
+<strong id="revenue">0</strong>
+</div>
+
+</div>
+
+<div id="orders"></div>
+
+</main>
+
+<script>
+
+/*
+هذه النسخة التجريبية تستخدم بيانات داخل المتصفح.
+بعد التأكد من أن صفحة الإدارة مناسبة،
+سنربطها بقاعدة بيانات حتى تصل طلبات الزبائن
+إلى هذه الصفحة تلقائياً.
+*/
+
+let orders = [
+
+{
+id:"MX-102458",
+name:"عميل تجريبي",
+phone:"+235 91 00 00 00",
+
+items:[
+"دجاج مشوي × 2",
+"كوكا كولا × 1"
+],
+
+total:11000,
+
+type:"🚗 توصيل",
+address:"أنجمينا",
+time:"في أسرع وقت",
+
+status:"new"
+
+},
+
+{
+id:"MX-102459",
+name:"عميلة تجريبية",
+phone:"+235 92 00 00 00",
+
+items:[
+"بيتزا المدينة × 1",
+"عصير طبيعي × 2"
+],
+
+total:9000,
+
+type:"🏪 استلام من المطعم",
+address:"-",
+time:"بعد 30 دقيقة",
+
+status:"preparing"
+
+}
+
+];
+
+function money(number){
+
+return number.toLocaleString("fr-FR")+" FCFA";
+
+}
+
+function statusText(status){
+
+if(status==="new") return "🆕 طلب جديد";
+
+if(status==="preparing") return "👨‍🍳 قيد التحضير";
+
+if(status==="ready") return "✅ جاهز";
+
+if(status==="done") return "📦 تم التسليم";
+
+if(status==="cancelled") return "❌ ملغي";
+
+}
+
+function render(){
+
+let container=document.getElementById("orders");
+
+if(!orders.length){
+
+container.innerHTML=`
+<div class="empty">
+📭 لا توجد طلبات حاليًا
+</div>
+`;
+
+return;
+
+}
+
+container.innerHTML=orders.map((order,index)=>`
+
+<div class="order">
+
+<div class="order-header">
+
+<div class="order-number">
+${order.id}
+</div>
+
+<div class="badge">
+${statusText(order.status)}
+</div>
+
+</div>
+
+<div class="info">
+
+👤 <strong>الاسم:</strong>
+${order.name}
+
+<br>
+
+📞 <strong>الهاتف:</strong>
+${order.phone}
+
+<br>
+
+📦 <strong>الطريقة:</strong>
+${order.type}
+
+<br>
+
+📍 <strong>العنوان:</strong>
+${order.address}
+
+<br>
+
+⏰ <strong>الوقت:</strong>
+${order.time}
+
+</div>
+
+<div class="items">
+
+<strong>🍽️ الطلب:</strong>
+
+<br><br>
+
+${order.items.map(item=>`
+<div>• ${item}</div>
+`).join("")}
+
+</div>
+
+<div class="total">
+
+💰 ${money(order.total)}
+
+<br>
+
+<span style="font-size:13px;color:#777">
+💵 الدفع: كاش
+</span>
+
+</div>
+
+<div class="actions">
+
+<button
+class="preparing"
+onclick="changeStatus(${index},'preparing')">
+👨‍🍳 قيد التحضير
+</button>
+
+<button
+class="ready"
+onclick="changeStatus(${index},'ready')">
+✅ جاهز
+</button>
+
+<button
+class="done"
+onclick="changeStatus(${index},'done')">
+📦 تم التسليم
+</button>
+
+<button
+class="cancel"
+onclick="changeStatus(${index},'cancelled')">
+❌ إلغاء
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+updateStats();
+
+}
+
+function changeStatus(index,status){
+
+orders[index].status=status;
+
+render();
+
+}
+
+function updateStats(){
+
+document.getElementById("ordersCount").innerText=
+orders.length;
+
+document.getElementById("preparingCount").innerText=
+orders.filter(x=>x.status==="preparing").length;
+
+let revenue=orders
+.filter(x=>x.status!=="cancelled")
+.reduce((sum,x)=>sum+x.total,0);
+
+document.getElementById("revenue").innerText=
+money(revenue);
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>

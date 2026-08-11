@@ -1,5 +1,3 @@
-تمام. انسخي هذا كله مرة واحدة بدل الكود الحالي. هذه النسخة تُبقي القائمة والسلة كما كانتا، وتضيف Firebase فقط عند تأكيد الطلب.
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -10,11 +8,14 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial;background:#f6f2ec;color:#222}
 header{background:#8b1e2d;color:white;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
-.logo{font-size:20px;font-weight:bold}.logo small{display:block;font-size:10px;margin-top:4px}
+.logo{font-size:20px;font-weight:bold}
+.logo small{display:block;font-size:10px;margin-top:4px}
 .lang{border:0;border-radius:20px;padding:8px 14px;color:#8b1e2d;font-weight:bold}
 .hero{background:linear-gradient(135deg,#741625,#a52d40);color:white;text-align:center;padding:50px 20px}
-.hero h1{font-size:30px}.hero p{line-height:1.8}
-button{cursor:pointer}.primary{background:#f3c541;border:0;border-radius:25px;padding:13px 24px;font-weight:bold}
+.hero h1{font-size:30px}
+.hero p{line-height:1.8}
+button{cursor:pointer}
+.primary{background:#f3c541;border:0;border-radius:25px;padding:13px 24px;font-weight:bold}
 main{max-width:1100px;margin:auto;padding:25px 15px}
 .categories{display:flex;gap:8px;overflow:auto;margin-bottom:20px}
 .cat{border:1px solid #ddd;background:white;border-radius:20px;padding:9px 15px;white-space:nowrap}
@@ -22,7 +23,8 @@ main{max-width:1100px;margin:auto;padding:25px 15px}
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 12px #0001}
 .card img{width:100%;height:150px;object-fit:cover;display:block}
-.card div{padding:12px}.card h3{margin:0 0 7px}
+.card div{padding:12px}
+.card h3{margin:0 0 7px}
 .desc{font-size:12px;color:#777;min-height:34px}
 .price{font-weight:bold;color:#8b1e2d;margin:8px 0}
 .add{width:100%;background:#8b1e2d;color:white;border:0;border-radius:8px;padding:10px}
@@ -39,7 +41,9 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 @media(min-width:700px){.products{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
+
 <body>
+
 <header>
 <div class="logo">
 🍽️ المدينة إكسبرس
@@ -47,13 +51,17 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 </div>
 <button class="lang" onclick="language()">Français</button>
 </header>
+
 <section class="hero">
 <h1 id="title">اطلب الآن واستلم بدون انتظار</h1>
 <p id="text">اطلب وجبتك مسبقًا أو اختر التوصيل إلى منزلك.</p>
 <button class="primary" onclick="document.getElementById('menu').scrollIntoView()">تصفح القائمة</button>
 </section>
+
 <main id="menu">
+
 <h2>🍴 قائمة الطعام</h2>
+
 <div class="categories">
 <button class="cat active" onclick="filter('all',this)">الكل</button>
 <button class="cat" onclick="filter('chicken',this)">🍗 الدجاج</button>
@@ -63,160 +71,244 @@ footer{background:#222;color:white;text-align:center;padding:25px;margin-top:30p
 <button class="cat" onclick="filter('drinks',this)">🥤 المشروبات</button>
 <button class="cat" onclick="filter('dessert',this)">🍰 الحلويات</button>
 </div>
+
 <div class="products" id="products"></div>
+
 </main>
+
 <footer>
 <strong>المدينة إكسبرس</strong><br>
 AL MADINA EXPRESS<br>
 أنجمينا • تشاد 🇹🇩
 </footer>
 
-🛒0
+<button class="cart" onclick="openCart()">🛒<span class="count" id="count">0</span></button>
 
 <div class="panel" id="panel">
 <button class="close" onclick="closeCart()">×</button>
 <h2>🛒 سلة الطلب</h2>
 <div id="cart"></div>
 </div>
+
 <script>
-/* واتساب */
-const WHATSAPP_NUMBER="23591161659";
-/* Firebase */
-const FIREBASE_URL="https://almadina-express-e5535-default-rtdb.asia-southeast1.firebasedatabase.app";
-/* القائمة */
+
+/* رقم واتساب استقبال الطلبات */
+const WHATSAPP_NUMBER = "23591161659";
+
 const foods=[
+
 ["دجاج مشوي","Poulet Grillé","chicken",5000,
 "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=700&q=85"],
+
 ["دجاج مقلي","Poulet Frit","chicken",4500,
 "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=85"],
+
 ["لحم مشوي","Viande Grillée","meat",6000,
 "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85"],
+
 ["ستيك لحم","Steak de Bœuf","meat",7000,
 "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=700&q=85"],
+
 ["بيتزا المدينة","Pizza Al Madina","pizza",5000,
 "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=85"],
+
 ["بيتزا دجاج","Pizza Poulet","pizza",6000,
 "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85"],
+
 ["برغر المدينة","Burger Al Madina","sandwich",3500,
 "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=85"],
+
 ["شاورما دجاج","Shawarma Poulet","sandwich",3000,
 "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=700&q=85"],
+
 ["بطاطا مقلية","Frites","sandwich",1500,
 "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=85"],
+
 ["سلطة طازجة","Salade","sandwich",1500,
 "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=85"],
+
 ["كوكا كولا","Coca-Cola","drinks",1000,
 "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=700&q=85"],
+
 ["عصير طبيعي","Jus Naturel","drinks",2000,
 "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=700&q=85"],
+
 ["ماء معدني","Eau","drinks",500,
 "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=700&q=85"],
+
 ["كيك","Gâteau","dessert",2000,
 "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=85"],
+
 ["آيس كريم","Glace","dessert",1500,
 "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=85"]
+
 ];
+
 let cart=[];
 let fr=false;
+
 function money(x){
 return x.toLocaleString("fr-FR")+" FCFA";
 }
+
 function show(list=foods){
-document.getElementById("products").innerHTML=list.map(x=>`
+
+document.getElementById("products").innerHTML=list.map((x,i)=>`
+
 <div class="card">
 <img src="${x[4]}" alt="${x[0]}">
+
 <div>
 <h3>${fr?x[1]:x[0]}</h3>
+
 <p class="desc">
 ${fr?"Délicieux repas préparé à la manière Al Madina":"وجبة شهية محضرة على طريقة المدينة إكسبرس"}
 </p>
+
 <div class="price">${money(x[3])}</div>
+
 <button class="add" onclick="add(${foods.indexOf(x)})">
 ${fr?"Ajouter au panier":"أضف إلى السلة"}
 </button>
+
 </div>
 </div>
+
 `).join("");
+
 }
+
 function filter(type,btn){
+
 document.querySelectorAll(".cat")
 .forEach(x=>x.classList.remove("active"));
+
 btn.classList.add("active");
+
 show(type=="all"?foods:foods.filter(x=>x[2]==type));
+
 }
+
 function add(i){
+
 let item=cart.find(x=>x.id==i);
+
 if(item)item.q++;
 else cart.push({id:i,q:1});
+
 update();
+
 }
+
 function update(){
+
 document.getElementById("count").innerText=
 cart.reduce((a,b)=>a+b.q,0);
+
 let box=document.getElementById("cart");
+
 if(!cart.length){
+
 box.innerHTML="<p>السلة فارغة 🛒</p>";
 return;
+
 }
+
 box.innerHTML=cart.map(x=>`
+
 <div class="item">
+
 <div>
 <strong>${fr?foods[x.id][1]:foods[x.id][0]}</strong>
 <br>
 ${money(foods[x.id][3])}
 </div>
+
 <div class="qty">
+
 <button onclick="change(${x.id},-1)">−</button>
 ${x.q}
 <button onclick="change(${x.id},1)">+</button>
+
 </div>
+
 </div>
+
 `).join("");
+
 box.innerHTML+=`
+
 <div class="total">
 <span>المجموع</span>
 <strong>${money(total())}</strong>
 </div>
+
 <button class="primary" style="width:100%" onclick="checkout()">
 متابعة الطلب
 </button>
+
 `;
+
 }
+
 function change(i,n){
+
 let x=cart.find(a=>a.id==i);
+
 if(!x)return;
+
 x.q+=n;
+
 if(x.q<=0)
 cart=cart.filter(a=>a.id!=i);
+
 update();
+
 }
+
 function total(){
+
 return cart.reduce(
 (a,b)=>a+foods[b.id][3]*b.q,0);
+
 }
+
 function openCart(){
+
 document.getElementById("panel").style.display="block";
 update();
+
 }
+
 function closeCart(){
+
 document.getElementById("panel").style.display="none";
+
 }
+
 function checkout(){
+
 document.getElementById("cart").innerHTML=`
+
 <h3>بيانات الطلب</h3>
+
 <label>الاسم</label>
 <input id="name" placeholder="اكتب اسمك">
+
 <label>رقم الهاتف</label>
 <input id="phone" placeholder="+235">
+
 <label>طريقة الطلب</label>
+
 <select id="type">
 <option value="delivery">🚗 توصيل إلى المنزل</option>
 <option value="pickup">🏪 استلام من المطعم</option>
 </select>
+
 <label>العنوان</label>
 <textarea id="address" placeholder="العنوان بالتفصيل"></textarea>
 
-وقت الاستلام
+<label>وقت الاستلام</label>
 
 <select id="time">
 <option>في أسرع وقت</option>
@@ -224,11 +316,14 @@ document.getElementById("cart").innerHTML=`
 <option>بعد 30 دقيقة</option>
 <option>بعد ساعة</option>
 </select>
+
 <div class="cash">
 💵 <strong>طريقة الدفع: كاش فقط</strong><br>
 الدفع عند استلام الطلب.
 </div>
+
 <br>
+
 <button class="primary" style="width:100%" onclick="confirmOrder()">
 تأكيد الطلب وإرسال الطلب إلى واتساب
 </button>
@@ -239,154 +334,93 @@ document.getElementById("cart").innerHTML=`
 
 function confirmOrder(){
 
-let name=document.getElementById(“name”).value.trim();
-let phone=document.getElementById(“phone”).value.trim();
-let type=document.getElementById(“type”).value;
-let address=document.getElementById(“address”).value.trim();
-let time=document.getElementById(“time”).value;
+let name=document.getElementById("name").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let type=document.getElementById("type").value;
+let address=document.getElementById("address").value.trim();
+let time=document.getElementById("time").value;
 
 if(!name||!phone){
 
-alert(“يرجى كتابة الاسم ورقم الهاتف”);
+alert("يرجى كتابة الاسم ورقم الهاتف");
 return;
 
 }
 
-if(type===“delivery”&&!address){
+if(type==="delivery"&&!address){
 
-alert(“يرجى كتابة عنوان التوصيل”);
+alert("يرجى كتابة عنوان التوصيل");
 return;
 
 }
 
-let number=“MX-”+Math.floor(100000+Math.random()*900000);
-
-let order={
-
-orderNumber:number,
-
-customer:{
-name:name,
-phone:phone
-},
-
-orderType:type,
-
-address:type===“delivery”?address:””,
-
-pickupTime:time,
-
-items:cart.map(x=>{
-
-let food=foods[x.id];
-
-return{
-nameAr:food[0],
-nameFr:food[1],
-quantity:x.q,
-price:food[3],
-subtotal:food[3]*x.q
-};
-
-}),
-
-total:total(),
-
-paymentMethod:“cash”,
-
-status:“new”,
-
-createdAt:Date.now()
-
-};
-
-/* حفظ الطلب في Realtime Database */
-
-fetch(FIREBASE_URL+”/orders/”+number+”.json”,{
-
-method:“PUT”,
-
-headers:{
-“Content-Type”:“application/json”
-},
-
-body:JSON.stringify(order)
-
-})
-
-.then(response=>{
-
-if(!response.ok)
-throw new Error(“Firebase error”);
-
-return response.json();
-
-})
-
-.then(()=>{
+let number="MX-"+Math.floor(100000+Math.random()*900000);
 
 let items=cart.map(x=>{
 
 let food=foods[x.id];
 
-return “• “+food[0]+” × “+x.q+” = “+money(food[3]*x.q);
+return "• "+food[0]+" × "+x.q+" = "+money(food[3]*x.q);
 
-}).join(”\n”);
+}).join("\n");
 
 let method=
-type===“delivery”
-?
-“🚗 توصيل إلى المنزل”
-:
-“🏪 استلام من المطعم”;
+type==="delivery"
+?"🚗 توصيل إلى المنزل"
+:"🏪 استلام من المطعم";
 
 let message=
-“🔔 طلب جديد - المدينة إكسبرس\n\n”+
-“🔢 رقم الطلب: “+number+”\n”+
-“👤 الاسم: “+name+”\n”+
-“📞 هاتف العميل: “+phone+”\n\n”+
-“🍽️ الطلب:\n”+
-items+”\n\n”+
-“💰 المجموع: “+money(total())+”\n”+
-“💵 الدفع: كاش عند الاستلام\n”+
-“📦 الطريقة: “+method+”\n”+
-“⏰ الوقت: “+time+”\n”+
-(type===“delivery”?“📍 العنوان: “+address+”\n”:””)+
-“\nشكراً لاختيار المدينة إكسبرس ❤️”;
+"🔔 *طلب جديد - المدينة إكسبرس*\n\n"+
+"🔢 رقم الطلب: "+number+"\n"+
+"👤 الاسم: "+name+"\n"+
+"📞 هاتف العميل: "+phone+"\n\n"+
+"🍽️ *الطلب:*\n"+
+items+"\n\n"+
+"💰 *المجموع: "+money(total())+"*\n"+
+"💵 الدفع: كاش عند الاستلام\n"+
+"📦 الطريقة: "+method+"\n"+
+"⏰ الوقت: "+time+"\n"+
+(type==="delivery"?"📍 العنوان: "+address+"\n":"")+
+"\nشكراً لاختيار المدينة إكسبرس ❤️";
 
 let whatsappURL=
-“https://wa.me/”+WHATSAPP_NUMBER+
-“?text=”+encodeURIComponent(message);
+"https://wa.me/"+WHATSAPP_NUMBER+
+"?text="+encodeURIComponent(message);
 
-document.getElementById(“cart”).innerHTML=`
+document.getElementById("cart").innerHTML=`
 
 <div style="text-align:center;padding:30px">
+
 <div style="font-size:60px">✅</div>
-<h2>تم تسجيل طلبك</h2>
+
+<h2>تم تجهيز طلبك</h2>
+
 <p>رقم الطلب</p>
+
 <h1 style="color:#8b1e2d">${number}</h1>
+
 <p>
-تم حفظ الطلب في نظام المطعم بنجاح.
+اضغط الزر لإرسال تفاصيل الطلب إلى واتساب المدينة إكسبرس.
 </p>
 
+<a href="${whatsappURL}"
+target="_blank"
+style="
+display:block;
+background:#25D366;
+color:white;
+text-decoration:none;
+padding:15px;
+border-radius:25px;
+font-weight:bold;
+margin-top:20px;
+">
 📲 إرسال الطلب إلى واتساب
+</a>
+
 </div>
 
 `;
-
-cart=[];
-
-document.getElementById(“count”).innerText=“0”;
-
-})
-
-.catch(error=>{
-
-console.error(error);
-
-alert(“تعذر حفظ الطلب. تأكدي من اتصال الإنترنت وقواعد Firebase.”);
-
-});
 
 }
 
@@ -394,18 +428,18 @@ function language(){
 
 fr=!fr;
 
-document.querySelector(”.lang”).innerText=
-fr?“العربية”:“Français”;
+document.querySelector(".lang").innerText=
+fr?"العربية":"Français";
 
-document.getElementById(“title”).innerText=
+document.getElementById("title").innerText=
 fr
-?“Commandez maintenant, récupérez sans attendre”
-:“اطلب الآن واستلم بدون انتظار”;
+?"Commandez maintenant, récupérez sans attendre"
+:"اطلب الآن واستلم بدون انتظار";
 
-document.getElementById(“text”).innerText=
+document.getElementById("text").innerText=
 fr
-?“Commandez avant votre arrivée ou choisissez la livraison.”
-:“اطلب وجبتك مسبقًا أو اختر التوصيل إلى منزلك.”;
+?"Commandez avant votre arrivée ou choisissez la livraison."
+:"اطلب وجبتك مسبقًا أو اختر التوصيل إلى منزلك.";
 
 show();
 
@@ -414,5 +448,6 @@ show();
 show();
 
 </script>
+
 </body>
 </html>
